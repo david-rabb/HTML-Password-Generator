@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Password Generator</title>
+  <style>
+  body {padding: 50px; background-color: #eee; font-size: 14pt; font-family: Arial, Helvetica, sans-serif; }
+  input {font-family: "Courier New", Courier, monospace; font-size: 14pt;}
+  #copied {color: orange;}
+  </style>
+</head>
+<body>
+  <form name="f">
+    12 chars<br /><input type="text" size="13" name="r1" value="..." onclick="passwordGenerator.doCopy(this);" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+    <br /><br /><br />
+    24 chars<br /><input type="text" size="26" name="r2" value="..." onclick="passwordGenerator.doCopy(this);" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+    <br /><br /><br />
+    48 chars<br /><input type="text" size="50" name="r3" value="..." onclick="passwordGenerator.doCopy(this);" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+    <br /><br /><br />
+    <span id="copied"></span>
+  </form>
+</body>
+<script>
+var passwordGenerator = {
+  // POSSIBLE CHRACTER VALUES
+  char: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+
+  // SET RANDOM VALUE IN FORM ELEMENT
+  setInputValue: function(input, length) {
+    var s = "";
+    while (s.length<length) {
+      s += this.nextChar();
+      // force string to contain all three character classes
+      if (s.length===length && !this.hasAllClasses(s)) {
+        s = ""; // start over. This would make the last character more likely to be a digit: s.substring(0, length-1);
+      }
+    }
+    input.value = s;
+  },
+
+  // CHECK IF STRING HAS DIGIT, LOWERCASE AND UPPERCASE CHARS
+  hasAllClasses: function(str) {
+    var classes = [0, 0, 0];
+    for (var i=0; i<str.length; i++) {
+      var n = this.char.indexOf(str[i]);
+      if (n<10) classes[0]++;
+      else if (n<36) classes[1]++;
+      else classes[2]++;
+    }
+    return classes[0]>0 && classes[1]>0 && classes[2]>0;
+  },
+
+  max: 4294967295,
+  rand: new Uint32Array(100),
+  pos: -1,
+
+  // GET NEXT SECURE RANDOM
+  nextChar: function() {
+    if (this.pos<0 || this.pos>=this.rand.length) {
+      window.crypto.getRandomValues(this.rand);
+      this.pos = 0;
+    }
+    var randValue = this.rand[this.pos++]/this.max;
+    return this.char[Math.floor(this.char.length*randValue)];
+  },
+
+  // SELECT AND COPY STRING TO CLIPBOARD WHEN CLICKED
+  doCopy: function(elem) {
+    elem.select();
+    try {
+      document.execCommand("copy");
+      document.getElementById("copied").innerHTML = "";
+      setTimeout(function() {
+        document.getElementById("copied").innerHTML = "copied to clipboard";
+      }, 100);
+    } catch(e){}
+  }
+};
+
+// INITIALIZE INPUT FIELDS
+passwordGenerator.setInputValue(document.f.r1, 12);
+passwordGenerator.setInputValue(document.f.r2, 24);
+passwordGenerator.setInputValue(document.f.r3, 48);
+</script>
+</html>
