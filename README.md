@@ -9,3 +9,7 @@ Random passwords are created at three predefined lengths:
 * **Short** (12 characters): Strong *typable* passwords
 * **Medium** (24 characters): Strong *pastable* passwords
 * **Long** (48 characters): Just in case you want more
+
+
+
+![Alt text](/screenshot.png?raw=true "Screenshot")
