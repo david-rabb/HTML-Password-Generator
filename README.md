@@ -6,6 +6,6 @@ A simple, user-friendly html page for generating and selecting secure passwords.
 * To enforce password strength, each password shown must contain ALL three character classes
  
 Random passwords are created at three predefined lengths: 
-* Short (12)
-* Medium (24)
-* Long (48)
+* **Short** (12 characters): Strong *typable* passwords
+* **Medium** (24 characters): Strong *pasteable* passwords
+* **Long** (48 characters): Just in case you want more
