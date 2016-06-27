@@ -7,17 +7,20 @@
   body {padding: 50px; background-color: #eee; font-size: 14pt; font-family: Arial, Helvetica, sans-serif; }
   input {font-family: "Courier New", Courier, monospace; font-size: 14pt;}
   #copied {color: orange;}
+  label {display: block; }
+  input {margin-bottom: 40px;}
+  input::-ms-clear { display: none; }
   </style>
 </head>
 <body>
   <form name="f">
-    12 chars<br /><input type="text" size="13" name="r1" value="..." onclick="passwordGenerator.doCopy(this);" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-    <br /><br /><br />
-    24 chars<br /><input type="text" size="26" name="r2" value="..." onclick="passwordGenerator.doCopy(this);" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-    <br /><br /><br />
-    48 chars<br /><input type="text" size="50" name="r3" value="..." onclick="passwordGenerator.doCopy(this);" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-    <br /><br /><br />
-    <span id="copied"></span>
+    <label for="r1">12 chars</label>
+    <input type="text" size="13" id="r1" name="r1" value="..." onclick="passwordGenerator.doCopy(this);" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+    <label for="r2">24 chars</label>
+    <input type="text" size="26" id="r2" name="r2" value="..." onclick="passwordGenerator.doCopy(this);" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+    <label for="r3">48 chars</label>
+    <input type="text" size="50" id="r3" name="r3" value="..." onclick="passwordGenerator.doCopy(this);" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+    <div id="copied"></div>
   </form>
 </body>
 <script>
